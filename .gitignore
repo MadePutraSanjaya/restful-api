@@ -1,2 +1,5 @@
 # Environents
 .env
+
+# Database
+.dbserver.db
