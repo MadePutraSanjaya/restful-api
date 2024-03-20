@@ -2,4 +2,4 @@
 .env
 
 # Database
-.dbserver.db
+dbserver.db
