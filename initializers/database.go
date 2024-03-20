@@ -1,16 +1,25 @@
 package initializers
 
 import (
-	"gorm.io/driver/sqlite" // Sqlite driver based on CGO
-	// "github.com/glebarez/sqlite" // Pure go SQLite driver, checkout https://github.com/glebarez/sqlite for details
+	"log"
+
+	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
-func ConnectToDb() (*gorm.DB, error) {
-	db, err := gorm.Open(sqlite.Open("dbserver.db"), &gorm.Config{})
-    if err != nil {
-        return nil, err
-    }
+var DB *gorm.DB
 
-    return db, nil
+func ConnectToDb() (*gorm.DB, error) {
+	if DB != nil {
+		return DB, nil
+	}
+
+	var err error
+	DB, err = gorm.Open(sqlite.Open("dbserver.db"), &gorm.Config{})
+	if err != nil {
+		log.Fatal("Error connecting to database:", err)
+		return nil, err
+	}
+
+	return DB, nil
 }
